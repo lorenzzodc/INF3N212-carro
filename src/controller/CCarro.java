@@ -50,7 +50,7 @@ public void mockCarros(){
     c1.setTpCambio("Manual");
     c1.setCombustivel("Flex");
     c1.setCor("Bege");
-    c1.setProprietario(cadPessoa.getPessoaCPF("14258828080"));
+    c1.setProprietario(cadPessoa.getPessoaCPF("11970327030"));
     addCarro(c1);
     
     Carro c2 = new Carro();

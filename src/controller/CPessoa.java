@@ -68,12 +68,13 @@ public class CPessoa {
         p1.setEndereco("Beco da Tela Azul");
         p1.setTelefone("14258828080");
         addPessoa(p1);
+        
         Pessoa p2 = new Pessoa();
-        p1.setIdPessoa(geraID());
-        p1.setCpf("86518838035");
-        p1.setNome("Linus Tovalds");
-        p1.setEndereco("Rua do Kernel");
-        p1.setTelefone("14085544000");
+        p2.setIdPessoa(geraID());
+        p2.setCpf("86518838035");
+        p2.setNome("Linus Tovalds");
+        p2.setEndereco("Rua do Kernel");
+        p2.setTelefone("14085544000");
         addPessoa(p2);
     }
 
