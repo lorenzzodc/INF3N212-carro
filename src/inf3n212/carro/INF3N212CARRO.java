@@ -69,6 +69,6 @@ public class INF3N212CARRO {
         System.out.println("4 - Deletar"+subM);
         System.out.println("0 - voltar");
         System.out.print("Digite aqui:\t");
-    }
+    }//fim subMenu
 
 }//fim da classe
