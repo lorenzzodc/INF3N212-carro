@@ -187,9 +187,9 @@ public class INF3N212CARRO {
         System.out.print("Informe o Telefone: ");
         telefone = leia.nextLine();
         idPessoa = cadPessoa.geraID();
-      Pessoa p = new Pessoa(idPessoa, nome, cpf, endereco, telefone);
-      cadPessoa.addPessoa(p);
-        System.out.println(VERDE+p.getNome()+" cadastrado com sucesso!"+RESET);
+        Pessoa p = new Pessoa(idPessoa, nome, cpf, endereco, telefone);
+        cadPessoa.addPessoa(p);
+        System.out.println(VERDE + p.getNome() + " cadastrado com sucesso!" + RESET);
     }
 
     private static void cadastrarCarro() {
@@ -197,10 +197,59 @@ public class INF3N212CARRO {
     }
 
     private static void editarPessoa() {
+        System.out.println(AZUL + "--Editar Pessoa--" + RESET);
+        boolean isCPF;
+        do {
+            System.out.println("Informe o CPF da Pessoa a ser editado: ");
+            String cpf = leia.nextLine();
+            isCPF = Validadores.isCPF(cpf);
+            if (isCPF) {
+                Pessoa p = cadPessoa.getPessoaCPF(cpf);
 
+                if (p != null) {
+                    System.out.println("Quais dados de " + p.getNome() + "deseja alterar?");
+                    System.out.println("1-Nome | 2-Endereço | 3-Telefone | 4-Todos | 0-Cancelar");
+                    System.out.print("Digite a opção: ");
+                    int op = leiaNumInt();
+                    if (op == 1 | op == 4) {
+                        System.out.println("Informe o novo nome:");
+                        p.setNome(leia.nextLine());
+                    }
+                    if (op == 2 | op == 4) {
+                        System.out.println("Informe o novo endereço:");
+                        p.setEndereco(leia.nextLine());
+                    }
+                    if (op == 3 | op == 4) {
+                        System.out.println("Informe o novo Telefone:");
+                        p.setTelefone(leia.nextLine());
+
+                    }
+                    if (op == 0) {
+                        System.out.println(VERMELHO + "Operação cancelada pelo Usuário" + RESET);
+                        isCPF = false;
+                    } else {
+                        System.out.println(VERMELHO + "CPF não cadastrado" + RESET);
+                        isCPF = false;
+                    }
+
+                } else {
+                    System.out.println(VERMELHO + "CPF inválido" + RESET);
+                    System.out.println("Deseja tentar novamente?");
+                    System.out.println("1-SIm | 1-não");
+                    int op = leiaNumInt();
+                    if (op == 1) {
+                        isCPF = true;
+
+                    } else {
+                        isCPF = false;
+                    }
+                }
+            }
+        } while (isCPF);
     }
 
-    private static void editarCarro() {
+
+private static void editarCarro() {
 
     }
 
@@ -220,7 +269,43 @@ public class INF3N212CARRO {
     }
 
     private static void deletarPessoa() {
+        System.out.println(AZUL + "--Deletar Pessoa--" + RESET);
+        boolean delCPF = false;
+        do {
+            System.out.println("Informe o CPF da Pessoa a ser deletada: ");
+            String cpf = leia.nextLine();
+            delCPF = Validadores.isCPF(cpf);
+            if (delCPF) {
+                Pessoa p = cadPessoa.getPessoaCPF(cpf);
+                if (p != null) {
+                    System.out.println("Deseja realmente deletar essa pessoa?");
+                    System.out.println("1-sim | 2-não");
+                    int opm = leiaNumInt();
+                    if (opm == 1) {
+                        cadPessoa.removePessoa(p);
+                        System.out.println(VERDE + "Pessoa deletada com sucesso" + RESET);
+                        delCPF = false;
+                    } else {
+                        System.out.println("Operação cancelada pelo usuário");
+                        delCPF = false;
+                    }
+                } else {
+                    System.out.println("CPF não cadastrado");
+                    System.out.println("Deseja tentar novamente?");
+                    System.out.println("1-sim | 2-não");
+                    int opm = leiaNumInt();
+                    if (opm == 1) {
+                        delCPF = true;
 
+                    } else {
+                        delCPF = false;
+                    }
+                }
+            } else {
+                System.out.println(VERMELHO + "CPF inválido" + RESET + "\n Tente novamente");
+                delCPF = true;
+            }
+        } while (delCPF);
     }
 
     private static void deletarCarro() {
