@@ -8,7 +8,6 @@ import controller.CCarro;
 import controller.CPessoa;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import javax.xml.transform.OutputKeys;
 import model.Carro;
 import model.Pessoa;
 import util.Validadores;
@@ -120,8 +119,8 @@ public class INF3N212CARRO {
 
     public static void menuP() {
         System.out.println(VERDE + "--Menu Principal--" + RESET);
-        System.out.println("1- ger.Pessoa");
-        System.out.println("2- ger. carro");
+        System.out.println("1- Gerir Pessoa");
+        System.out.println("2- Pessoa carro");
         System.out.println("0 - sair");
         System.out.print("Digite aqui:");
     }//fim menuP
@@ -193,7 +192,37 @@ public class INF3N212CARRO {
     }
 
     private static void cadastrarCarro() {
-        System.out.println("Carro");
+        System.out.println(AZUL + "--Cadastar Carro--" + RESET);
+        boolean pCarro = true;
+        String placa;
+        String marca;
+        String modelo;
+        int anoFab;
+        int anoMod;
+        String cor;
+        String tpCambio;
+        String combustivel;
+        Pessoa proprietario;
+        do {
+            System.out.print("Informe a placa: ");
+            placa = leia.nextLine();
+            pCarro = Validadores.validarPlaca(placa);
+            if (pCarro) {
+                Carro Carro = cadCarro.getCarroPlaca(placa);
+                if (Carro == null) {
+                    //segue o fluxo de cadastro
+                } else {
+                    System.out.println(VERMELHO + "Placa já cadastrada" + RESET);
+                    pCarro = false;
+
+                }
+            } else {
+                System.out.println(VERMELHO + "Placa inválida! Tenta novamente" + RESET);
+                pCarro = true;
+
+            }
+
+        } while (pCarro);
     }
 
     private static void editarPessoa() {
@@ -207,49 +236,55 @@ public class INF3N212CARRO {
                 Pessoa p = cadPessoa.getPessoaCPF(cpf);
 
                 if (p != null) {
-                    System.out.println("Quais dados de " + p.getNome() + "deseja alterar?");
-                    System.out.println("1-Nome | 2-Endereço | 3-Telefone | 4-Todos | 0-Cancelar");
-                    System.out.print("Digite a opção: ");
-                    int op = leiaNumInt();
-                    if (op == 1 | op == 4) {
-                        System.out.println("Informe o novo nome:");
-                        p.setNome(leia.nextLine());
-                    }
-                    if (op == 2 | op == 4) {
-                        System.out.println("Informe o novo endereço:");
-                        p.setEndereco(leia.nextLine());
-                    }
-                    if (op == 3 | op == 4) {
-                        System.out.println("Informe o novo Telefone:");
-                        p.setTelefone(leia.nextLine());
+                    do {
 
-                    }
-                    if (op == 0) {
-                        System.out.println(VERMELHO + "Operação cancelada pelo Usuário" + RESET);
-                        isCPF = false;
-                    } else {
-                        System.out.println(VERMELHO + "CPF não cadastrado" + RESET);
-                        isCPF = false;
-                    }
+                        System.out.println("Quais dados de " + p.getNome() + "deseja alterar?");
+                        System.out.println("1-Nome | 2-Endereço | 3-Telefone | 4-Todos | 0-Voltar");
+                        System.out.print("Digite a opção: ");
+                        int op = leiaNumInt();
+                        if (op == 1 | op == 4) {
+                            System.out.println("Informe o novo nome:");
+                            p.setNome(leia.nextLine());
+                        }
+                        if (op == 2 | op == 4) {
+                            System.out.println("Informe o novo endereço:");
+                            p.setEndereco(leia.nextLine());
+                        }
+                        if (op == 3 | op == 4) {
+                            System.out.println("Informe o novo Telefone:");
+                            p.setTelefone(leia.nextLine());
+
+                        }
+                        if (op == 0) {
+                            System.out.println(VERMELHO + "Operação cancelada pelo Usuário" + RESET);
+                            isCPF = false;
+                        }
+                        if (op < 0 || op > 4) {
+                            System.out.println(VERMELHO + "Opção inválida" + RESET);
+
+                        }
+                    } while (isCPF); //fim do p!=null
+                } else {
+                    System.out.println(VERMELHO + "CPF não cadastrado" + RESET);
+                    isCPF = false;
+                }
+
+            } else {
+                System.out.println(VERMELHO + "CPF inválido" + RESET);
+                System.out.println("Deseja tentar novamente?");
+                System.out.println("1-SIm | 1-não");
+                int op = leiaNumInt();
+                if (op == 1) {
+                    isCPF = true;
 
                 } else {
-                    System.out.println(VERMELHO + "CPF inválido" + RESET);
-                    System.out.println("Deseja tentar novamente?");
-                    System.out.println("1-SIm | 1-não");
-                    int op = leiaNumInt();
-                    if (op == 1) {
-                        isCPF = true;
-
-                    } else {
-                        isCPF = false;
-                    }
+                    isCPF = false;
                 }
             }
         } while (isCPF);
     }
 
-
-private static void editarCarro() {
+    private static void editarCarro() {
 
     }
 
